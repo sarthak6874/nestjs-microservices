@@ -8,13 +8,25 @@ import { AppService } from './app.service';
     ClientsModule.register([
       {
         name: 'COMMUNICATION',
-        transport: Transport.TCP,
-        options: { port: 3002 },
+        transport: Transport.RMQ,
+        options: {
+          urls: ['amqp://localhost:5672'],
+          queue: 'communication_queue',
+          queueOptions: {
+            durable: false
+          }
+        },
       },
       {
         name: 'ANALYTICS',
-        transport: Transport.TCP,
-        options: { port: 3001 },
+        transport: Transport.RMQ,
+        options: {
+          urls: ['amqp://localhost:5672'],
+          queue: 'analytics_queue',
+          queueOptions: {
+            durable: false
+          }
+        },
       },
     ]),
   ],
